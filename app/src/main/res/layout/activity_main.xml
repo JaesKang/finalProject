@@ -20,12 +20,12 @@
 
     <ListView
         android:id="@+id/question_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:divider="?attr/dividerVertical"></ListView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_question"
+        android:id="@+id/add_remove_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"

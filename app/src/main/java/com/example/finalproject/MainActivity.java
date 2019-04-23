@@ -12,12 +12,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     /** List of questions user is tracking. */
-    final private ArrayList<String> questionList = new ArrayList<>();
+    final protected ArrayList<String> questionList = new ArrayList<>();
 
     //create data object to keep track of answers
 
@@ -56,14 +57,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //set up question-adding button
-        final FloatingActionButton add_question = findViewById(R.id.add_question);
+        //set up add/remove question button and menu
+        final FloatingActionButton add_question = findViewById(R.id.add_remove_question);
+        final PopupMenu addRemoveMenu = new PopupMenu(MainActivity.this, add_question);
+
         add_question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.this.addQuestion();
+                addRemoveMenu.getMenuInflater().inflate(R.menu.add_remove_menu, addRemoveMenu.getMenu());
+                addRemoveMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.add_item) {
+                            addQuestion();
+                            return true;
+                        } else if (item.getItemId() == R.id.remove_item) {
+                            removeQuestion();
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+                addRemoveMenu.show();
             }
         });
+    }
+
+    /** Add a question. */
+    protected void addQuestion() {
+        //prompt question and answers
+    }
+
+    /** Remove a question. */
+    protected void removeQuestion() {
+        //get the question to remove, remove it
     }
 
     /** Add an answer to a question.
@@ -74,14 +102,6 @@ public class MainActivity extends AppCompatActivity {
         /*
         pull up the answers to this particular question
         get the user's selection
-        */
-    }
-
-    /** Add a question. */
-    protected void  addQuestion() {
-        /*
-        Get question
-        Get answers to question
         */
     }
 }

@@ -7,4 +7,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="body_about">Information about the app will go here.</string>
+    <string name="title_add">Add</string>
+    <string name="title_remove">Remove</string>
 </resources>
