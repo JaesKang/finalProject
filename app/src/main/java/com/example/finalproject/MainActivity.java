@@ -29,6 +29,7 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textInfo;
     ArrayList<String> Example;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         String[] categories = {"Daily", "Study", "Mood"};
         Example = new ArrayList<>(Arrays.asList(categories));
-        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Example);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Example);
         final ListView theListView = (ListView) findViewById(R.id.categories);
 
         theListView.setAdapter(adapter);
@@ -159,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 Example.remove(deletePosition);
-
-
+                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetInvalidated();
             }
         });
         alert.setNegativeButton("CANCEL", new OnClickListener() {

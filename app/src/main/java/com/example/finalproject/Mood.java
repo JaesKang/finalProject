@@ -51,6 +51,8 @@ public class Mood extends AppCompatActivity {
 
     TextView textInfo;
     ArrayList<String> question;
+    ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,8 @@ public class Mood extends AppCompatActivity {
 
         String[] question1 = {"How are you?", "second question", "third question"};
         question = new ArrayList<>(Arrays.asList(question1));
-        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, question);
+
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, question);
 
         final ListView theListView = (ListView) findViewById(R.id.questionList);
 
@@ -84,6 +87,18 @@ public class Mood extends AppCompatActivity {
 
             }
         });
+
+        theListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            // setting onItemLongClickListener and passing the position to the function
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int position, long arg3) {
+                removeItemFromList(position);
+
+                return true;
+            }
+        });
+
         textInfo = (TextView)findViewById(R.id.info);
 
         FloatingActionButton fab = findViewById(R.id.addQuestions);
@@ -132,6 +147,34 @@ public class Mood extends AppCompatActivity {
         });
 
         builder.show();
+
+    }
+    // method to remove list item
+    protected void removeItemFromList(int position) {
+        final int deletePosition = position;
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(
+                Mood.this);
+
+        alert.setTitle("Delete");
+        alert.setMessage("Do you want delete this item?");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                question.remove(deletePosition);
+                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetInvalidated();
+            }
+        });
+        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
 
     }
 

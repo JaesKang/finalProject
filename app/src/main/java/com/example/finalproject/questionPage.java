@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,6 +53,8 @@ public class questionPage extends AppCompatActivity {
 
     TextView question;
     ArrayList<String> answer;
+    ArrayAdapter<String> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +74,26 @@ public class questionPage extends AppCompatActivity {
 
         String[] answers = {"Great", "Alright", "Not good"};
         answer = new ArrayList<>(Arrays.asList(answers));
-        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, answer);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, answer);
 
         final ListView theListView = (ListView) findViewById(R.id.answer);
 
         theListView.setAdapter(adapter);
+
+
+
+
+        theListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            // setting onItemLongClickListener and passing the position to the function
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int position, long arg3) {
+                removeItemFromList(position);
+
+                return true;
+            }
+        });
+
         FloatingActionButton fab = findViewById(R.id.addAnswer);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +102,8 @@ public class questionPage extends AppCompatActivity {
                 openDialog();
             }
         });
+
+
 
 
     }
@@ -124,6 +144,35 @@ public class questionPage extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    // method to remove list item
+    protected void removeItemFromList(int position) {
+        final int deletePosition = position;
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(
+                questionPage.this);
+
+        alert.setTitle("Delete");
+        alert.setMessage("Do you want delete this item?");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                answer.remove(deletePosition);
+                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetInvalidated();
+            }
+        });
+        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
+
     }
 
 
