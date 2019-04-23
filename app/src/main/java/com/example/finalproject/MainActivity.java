@@ -18,7 +18,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     /** List of questions user is tracking. */
-    final protected ArrayList<String> questionList = new ArrayList<>();
+    final private ArrayList<String> questionList = new ArrayList<>();
+
+    /** List of question data for all questions. */
+    final private ArrayList<QuestionData> questionDataList = new ArrayList<>();
 
     //create data object to keep track of answers
 
@@ -86,12 +89,19 @@ public class MainActivity extends AppCompatActivity {
 
     /** Add a question. */
     protected void addQuestion() {
-        //prompt question and answers
+        /*
+        prompt question and answers
+        add to list
+        */
     }
 
     /** Remove a question. */
     protected void removeQuestion() {
-        //get the question to remove, remove it
+        /*
+        get the question to remove
+        double-check removal
+        remove
+        */
     }
 
     /** Add an answer to a question.
