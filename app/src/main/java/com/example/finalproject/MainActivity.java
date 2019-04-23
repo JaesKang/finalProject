@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,18 +31,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem v) {
                 switch (v.getItemId()) {
-                    case R.id.navigation_answer:
-                        MainActivity.this.setContentView(R.layout.activity_main);
-                        return true;
                     case R.id.navigation_results:
                         Intent showResults = new Intent(MainActivity.this, Results.class);
                         startActivity(showResults);
                         return true;
                     case R.id.navigation_about:
-                        MainActivity.this.setContentView(R.layout.content_about);
+                        Intent showAbout = new Intent(MainActivity.this, About.class);
+                        startActivity(showAbout);
                         return true;
+                    default:
+                        return false;
                 }
-                return false;
             }
         });
 
@@ -55,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 answerQuestion((String) question_list.getItemAtPosition(position));
             }
         });
+
+        //set up question-adding button
+        final FloatingActionButton add_question = findViewById(R.id.add_question);
+        add_question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.addQuestion();
+            }
+        });
     }
 
     /** Add an answer to a question.
@@ -65,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
         /*
         pull up the answers to this particular question
         get the user's selection
+        */
+    }
+
+    /** Add a question. */
+    protected void  addQuestion() {
+        /*
+        Get question
+        Get answers to question
         */
     }
 }
