@@ -2,7 +2,7 @@ package com.example.finalproject;
 
 import java.util.List;
 import java.util.ArrayList;
-//import org.apache.commons.math3.distribution.ChiSquaredDistribution;
+import org.apache.commons.math3.distribution.ChiSquaredDistribution;
 
 /** A class for storing data related to one particular question. */
 public class QuestionData {
@@ -101,11 +101,11 @@ public class QuestionData {
      *
      * @return the p-value
      */
-    /*String chiSquaredTest() {
-        double expectedFrequency = 0;
-        if (possibleAnswers.size() > 0) {
-            expectedFrequency = (double) chosenAnswers.size() / (double) possibleAnswers.size();
+    String chiSquaredTest() {
+        if (chosenAnswers.size() < 2) {
+            return Double.toString(0);
         }
+        double expectedFrequency = (double) chosenAnswers.size() / (double) possibleAnswers.size();
         double chiSquaredStat = 0;
         for (Frequency frequency : frequencies) {
             chiSquaredStat += Math.pow((double) frequency.getFrequency() - expectedFrequency, 2);
@@ -113,7 +113,7 @@ public class QuestionData {
         chiSquaredStat /= expectedFrequency;
         ChiSquaredDistribution distribution = new ChiSquaredDistribution(possibleAnswers.size() - 1);
         return Double.toString(1 - distribution.cumulativeProbability(chiSquaredStat));
-    }*/
+    }
 
     /** Recalculate frequencies.
      *

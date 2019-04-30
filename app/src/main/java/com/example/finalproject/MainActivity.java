@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //set up navigation bar
-        final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        final BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(v -> {
             switch (v.getItemId()) {
                 case R.id.navigation_answer:
@@ -138,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Chi-squared test
-        /*TextView pValue = findViewById(R.id.p_value);
-        pValue.setText(questionData.chiSquaredTest());*/
+        TextView pValue = findViewById(R.id.p_value);
+        pValue.setText(questionData.chiSquaredTest());
     }
 
     /** Getter for questionData. */
