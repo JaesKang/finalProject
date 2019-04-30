@@ -7,6 +7,8 @@ import org.apache.commons.math3.distribution.ChiSquaredDistribution;
 /** A class for storing data related to one particular question. */
 public class QuestionData {
 
+    final static int MAX_ANSWERS = 5;
+
     /** The question being asked. */
     private String question;
 
@@ -83,7 +85,7 @@ public class QuestionData {
      *
      * @return question
      */
-    public String getQuestion() {
+    String getQuestion() {
         return question;
     }
 
@@ -99,27 +101,18 @@ public class QuestionData {
      *
      * @return the p-value
      */
-    public double chiSquaredTest() {
-        double expectedFrequency = averageFrequency();
+    String chiSquaredTest() {
+        double expectedFrequency = 0;
+        if (possibleAnswers.size() > 0) {
+            expectedFrequency = (double) chosenAnswers.size() / (double) possibleAnswers.size();
+        }
         double chiSquaredStat = 0;
         for (Frequency frequency : frequencies) {
             chiSquaredStat += Math.pow((double) frequency.getFrequency() - expectedFrequency, 2);
         }
         chiSquaredStat /= expectedFrequency;
         ChiSquaredDistribution distribution = new ChiSquaredDistribution(possibleAnswers.size() - 1);
-        return 1 - distribution.cumulativeProbability(chiSquaredStat);
-    }
-
-    /** Calculate the average frequency.
-     *
-     * @return the average frequency
-     */
-    private double averageFrequency() {
-        double sum = 0;
-        for (Frequency frequency : frequencies) {
-            sum += frequency.getFrequency();
-        }
-        return sum / (double) frequencies.size();
+        return Double.toString(1 - distribution.cumulativeProbability(chiSquaredStat));
     }
 
     /** Recalculate frequencies.
@@ -136,14 +129,14 @@ public class QuestionData {
      *
      * @return frequencies
      */
-    public List<Frequency> getFrequencies() {
+    List<Frequency> getFrequencies() {
         return frequencies;
     }
 
     /** Interior class that stores answers and their frequencies.
      *
      */
-    public class Frequency {
+    class Frequency {
         /** The answer. */
         private String answer;
 
