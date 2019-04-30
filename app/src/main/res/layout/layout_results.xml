@@ -16,7 +16,8 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
         android:text="@string/question_display"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_frequencies"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@color/colorPrimary" />
         </TableRow>
 
         <TableRow
@@ -68,7 +70,8 @@
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:text="@string/title_answer"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/frequency0"
@@ -76,7 +79,8 @@
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:text="@string/zero"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark" />
         </TableRow>
 
         <TableRow
@@ -93,7 +97,8 @@
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:text="@string/title_answer"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/frequency1"
@@ -101,7 +106,8 @@
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:text="@string/zero"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark" />
 
         </TableRow>
 
@@ -119,7 +125,8 @@
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:text="@string/title_answer"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/frequency2"
@@ -127,7 +134,8 @@
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:text="@string/zero"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark" />
         </TableRow>
 
         <TableRow
@@ -144,7 +152,8 @@
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:text="@string/title_answer"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/frequency3"
@@ -152,7 +161,8 @@
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:text="@string/zero"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark" />
         </TableRow>
 
         <TableRow
@@ -169,7 +179,8 @@
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:text="@string/title_answer"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/frequency4"
@@ -177,7 +188,8 @@
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:text="@string/zero"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark" />
         </TableRow>
     </TableLayout>
 
@@ -218,7 +230,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/chi_p_value"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/p_value"
@@ -227,7 +240,8 @@
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:text="@string/zero"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

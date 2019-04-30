@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -37,7 +35,8 @@
             android:id="@+id/set_question_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/set_question" />
+            android:hint="@string/set_question"
+            android:textColor="@color/colorPrimaryDark" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
