@@ -6,7 +6,13 @@
     <string name="title_activity_results">Results</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="body_about">Information about the app will go here.</string>
-    <string name="title_add">Add</string>
-    <string name="title_remove">Remove</string>
+    <string name="body_about">Customize a question and your answers to it, and see statistics on your responses!
+        \nMade by Jaes Kang and Mariah Laugesen.</string>
+    <string name="question_display">Question</string>
+    <string name="change_question">Change Question</string>
+    <string name="set_question">Set Question</string>
+    <string name="set_answers">Set Answers</string>
+    <string name="add_answer">Add Answer</string>
+    <string name="remove_answers">Remove All Answers</string>
+    <string name="go">GO</string>
 </resources>

@@ -7,9 +7,6 @@ import org.apache.commons.math3.distribution.ChiSquaredDistribution;
 /** A class for storing data related to one particular question. */
 public class QuestionData {
 
-    /** Minimum number of answers. */
-    private final static int MIN_ANSWERS = 2;
-
     /** The question being asked. */
     private String question;
 
@@ -32,12 +29,9 @@ public class QuestionData {
      * @param setQuestion what the question should be
      * @param setAnswers what the answers should be
      */
-    public QuestionData(final String setQuestion, final List<String> setAnswers) {
+    QuestionData(final String setQuestion, final List<String> setAnswers) {
         if (setQuestion == null || setAnswers == null || setAnswers.contains(null)) {
             throw new IllegalArgumentException("inputs should not be null");
-        }
-        if (setAnswers.size() < MIN_ANSWERS) {
-            throw new IllegalArgumentException("There should be at least " + MIN_ANSWERS + " answers");
         }
         question = setQuestion;
         possibleAnswers = setAnswers;
@@ -48,7 +42,7 @@ public class QuestionData {
      *
      * @param setQuestion what the question should be
      */
-    public QuestionData(final String setQuestion) {
+    QuestionData(final String setQuestion) {
         if (setQuestion == null) {
             throw new IllegalArgumentException("input should not be null");
         }
@@ -60,12 +54,9 @@ public class QuestionData {
      *
      * @param setAnswers the answers
      */
-    public void setAnswers(final List<String> setAnswers) {
+    void setAnswers(final List<String> setAnswers) {
         if (setAnswers == null || setAnswers.contains(null)) {
             throw new IllegalArgumentException("inputs should not be null");
-        }
-        if (setAnswers.size() < MIN_ANSWERS) {
-            throw new IllegalArgumentException("There should be at least " + MIN_ANSWERS + " answers");
         }
         possibleAnswers = setAnswers;
         chosenAnswers = new ArrayList<>();
@@ -76,7 +67,7 @@ public class QuestionData {
      *
      * @param answer the response to add
      */
-    public void addAnswer(final String answer) {
+    void addAnswer(final String answer) {
         if (!possibleAnswers.contains(answer)) {
             throw new IllegalArgumentException(answer + " is not a valid answer");
         }
@@ -100,7 +91,7 @@ public class QuestionData {
      *
      * @return answers
      */
-    public List<String> getPossibleAnswers() {
+    List<String> getPossibleAnswers() {
         return possibleAnswers;
     }
 
