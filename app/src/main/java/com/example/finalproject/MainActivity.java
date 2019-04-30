@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
 
         //set up navigation bar
-        final BottomNavigationView navigation = findViewById(R.id.navigation);
+        final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(v -> {
             switch (v.getItemId()) {
                 case R.id.navigation_answer:
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     return false;
             }
         });
+
 
         //get display up-to-date
         updateDisplay();
@@ -127,12 +131,15 @@ public class MainActivity extends AppCompatActivity {
             frequency.setText(frequencies.get(i).getFrequency());
         }
         for (int i = frequencies.size(); i < frequencyRows.length; i++) {
+            if (frequencyRows[i] == null) {
+                break;
+            }
             frequencyRows[i].setVisibility(View.GONE);
         }
 
         //Chi-squared test
-        TextView pValue = findViewById(R.id.p_value);
-        pValue.setText(questionData.chiSquaredTest());
+        /*TextView pValue = findViewById(R.id.p_value);
+        pValue.setText(questionData.chiSquaredTest());*/
     }
 
     /** Getter for questionData. */
