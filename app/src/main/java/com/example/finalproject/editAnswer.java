@@ -58,6 +58,8 @@ public class editAnswer extends AppCompatActivity {
             editor.remove("name2");
             editor.remove("name3");
             editor.remove("name4");
+
+            editor.remove("answerSize");
             editor.apply();
             Toast.makeText(getApplicationContext(), "All answers deleted", Toast.LENGTH_LONG).show();
         });

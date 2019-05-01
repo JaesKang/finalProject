@@ -14,6 +14,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Toast;
+
 
 
 import java.util.ArrayList;
@@ -27,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     //String restoredText = prefs.getString("text", " ");
 
     QuestionData questionData = new QuestionData(" ", new ArrayList<>());
-
 
     int count0 = 0;
     int count1 = 0;
@@ -134,34 +135,49 @@ public class MainActivity extends AppCompatActivity {
         submitAnwer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (answerSpinner.getSelectedItem() == null) {
+                    Toast.makeText(getApplicationContext(), "No answer is selected", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 String selection = answerSpinner.getSelectedItem().toString();
                 ArrayList<String> temp = questionData.getPossibleAnswers();
 
+                editor.putInt("answerSize", temp.size());
+                editor.apply();
 
                 for (int i = 0; i < temp.size(); i++) {
                     if (selection.equals(temp.get(i))) {
                         if (i == 0) {
                             count0++;
+                            Toast.makeText(getApplicationContext(), temp.get(i) + " submitted", Toast.LENGTH_SHORT).show();
                             editor.putInt("answer" + i, count0);
                             editor.apply();
                         }
                         if (i == 1) {
                             count1++;
+                            Toast.makeText(getApplicationContext(), temp.get(i) + " submitted", Toast.LENGTH_SHORT).show();
+
                             editor.putInt("answer" + i, count1);
                             editor.apply();
                         }
                         if (i == 2) {
                             count2++;
+                            Toast.makeText(getApplicationContext(), temp.get(i) + " submitted", Toast.LENGTH_SHORT).show();
+
                             editor.putInt("answer" + i, count2);
                             editor.apply();
                         }
                         if (i == 3) {
                             count3++;
+                            Toast.makeText(getApplicationContext(), temp.get(i) + " submitted", Toast.LENGTH_SHORT).show();
+
                             editor.putInt("answer" + i, count3);
                             editor.apply();
                         }
                         if (i == 4) {
                             count4++;
+                            Toast.makeText(getApplicationContext(), temp.get(i) + " submitted", Toast.LENGTH_SHORT).show();
+
                             editor.putInt("answer" + i, count4);
                             editor.apply();
                         }
@@ -176,11 +192,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
-
-
-
-
         //set up question-changing button
         final Button changeQuestion = findViewById(R.id.changeQuestion);
 
@@ -191,8 +202,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(b);
             }
         });
-
-
 
     }
 
@@ -209,15 +218,7 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.support_simple_spinner_dropdown_item, questionData.getPossibleAnswers());
         answerSpinner.setAdapter(answerAdapter);
 
-
-
-
-
-
     }
-
-
-
 
     /** Getter for questionData. */
     QuestionData getQuestionData() {

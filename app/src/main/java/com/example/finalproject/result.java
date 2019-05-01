@@ -88,8 +88,6 @@ public class result extends AppCompatActivity {
         String name3 = "";
         String name4 = "";
 
-        String chi = "";
-
         int frequency0 = 0;
         int frequency1 = 0;
         int frequency2 = 0;
@@ -109,8 +107,7 @@ public class result extends AppCompatActivity {
             frequency2 = prefs.getInt("answer2", 0);
             frequency3 = prefs.getInt("answer3", 0);
             frequency4 = prefs.getInt("answer4", 0);
-            chi = prefs.getString("chi", "0");
-            size = prefs.getInt("possible", 0);
+            size = prefs.getInt("answerSize", 1);
 
         }
         answer0.setText(name0);
@@ -125,14 +122,10 @@ public class result extends AppCompatActivity {
         freq3.setText(Integer.toString(frequency3));
         freq4.setText(Integer.toString(frequency4));
 
-
-
         //Chi-squared test
-
         int totalCount = frequency0 + frequency1 + frequency2 + frequency3 + frequency4;
 
         int expectedFrequency = totalCount / size;
-
 
         ArrayList<Integer> countArray = new ArrayList<>();
 
@@ -168,11 +161,15 @@ public class result extends AppCompatActivity {
             chiStat += Math.pow(countArray.get(i) - expectedFrequency, 2) / expectedFrequency;
         }
 
+        if (size <= 1) {
+            pValue.setText("Not enough answers for Chi-squared test");
+        } else {
+            ChiSquaredDistribution distribution = new ChiSquaredDistribution(size - 1);
+            String pvalue = Double.toString(1 - distribution.cumulativeProbability(chiStat));
+            pValue.setText(pvalue);
+        }
 
 
-        ChiSquaredDistribution distribution = new ChiSquaredDistribution(size - 1);
-        String pvalue = Double.toString(1 - distribution.cumulativeProbability(chiStat));
-        pValue.setText(pvalue);
 
 
 
