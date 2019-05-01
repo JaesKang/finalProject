@@ -25,7 +25,6 @@ public class editAnswer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_set_answers);
 
-
         //set up answer entry
         ArrayList<String> answers = new ArrayList<>();
         TextInputLayout answerEntry = findViewById(R.id.add_answer_entry);
