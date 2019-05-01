@@ -82,18 +82,18 @@ public class result extends AppCompatActivity {
         String restoredText = prefs.getString("text", null);
 
 
-        String name0 = "";
-        String name1 = "";
-        String name2 = "";
-        String name3 = "";
-        String name4 = "";
+        String name0 = "??";
+        String name1 = "??";
+        String name2 = "??";
+        String name3 = "??";
+        String name4 = "??";
 
         int frequency0 = 0;
         int frequency1 = 0;
         int frequency2 = 0;
         int frequency3 = 0;
         int frequency4 = 0;
-        int size = 0;
+        int size = 1;
 
 
         if (restoredText != null) {
