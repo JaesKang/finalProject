@@ -29,7 +29,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:gravity="center"
+
         android:layout_marginBottom="16dp">
+
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/set_question_text"

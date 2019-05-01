@@ -1,27 +1,44 @@
 package com.example.finalproject;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.content.Intent;
+import android.content.SharedPreferences;
+
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
     /** List of question data for all questions. */
-    private QuestionData questionData = new QuestionData("Example question", new ArrayList<>());
+
+    //SharedPreferences prefs = getSharedPreferences("PRES", MODE_PRIVATE);
+    //String restoredText = prefs.getString("text", " ");
+
+    QuestionData questionData = new QuestionData(" ", new ArrayList<>());
+
+
+    int count0 = 0;
+    int count1 = 0;
+    int count2 = 0;
+    int count3 = 0;
+    int count4 = 0;
+
+    //The key argument here must match that used in the other activity
+
+ //   SharedPreferences prefs = getSharedPreferences("name", MODE_PRIVATE);
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,79 +46,154 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        SharedPreferences.Editor editor = getSharedPreferences("PRES", MODE_PRIVATE).edit();
+
+        SharedPreferences prefs = getSharedPreferences("PRES", MODE_PRIVATE);
+        String restoredText = prefs.getString("text", null);
+        String exampleQuestion = " ";
+        if (restoredText != null) {
+            exampleQuestion = prefs.getString("question", "Enter a question");//"No name defined" is the default value.
+
+        }
+
+        Bundle extras = getIntent().getExtras();
+
+
+        if (!(exampleQuestion.equals(" "))) {
+            questionData.setQuestion(exampleQuestion);
+            //The key argument here must match that used in the other activity
+
+        } else {
+            questionData.setQuestion("Set a question");
+        }
+        Set<String> set = prefs.getStringSet("answers", null);
+        ArrayList<String> myList = new ArrayList<>();
+        if (set != null) {
+            myList.addAll(set);
+            questionData.setAnswers(myList);
+        }
+        ArrayList<String> temp = questionData.getPossibleAnswers();
+        for (int i = 0; i < temp.size(); i++) {
+            editor.putString("name" + i, temp.get(i));
+            editor.apply();
+        }
+
+
+
+
+
+
         //set up navigation bar
-        final BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(v -> {
-            switch (v.getItemId()) {
-                case R.id.navigation_answer:
-                    setContentView(R.layout.activity_main);
-                    return true;
-                case R.id.navigation_results:
-                    setContentView(R.layout.layout_results);
-                    return true;
-                case R.id.navigation_about:
-                    setContentView(R.layout.layout_about);
-                    return true;
-                default:
-                    return false;
+        final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_answer:
+                        break;
+                    case R.id.navigation_results:
+                        Intent a = new Intent(MainActivity.this, result.class);
+                        startActivity(a);
+                        break;
+                    case R.id.navigation_about:
+                        Intent b = new Intent(MainActivity.this, about.class);
+                        startActivity(b);
+                        break;
+                }
+                return false;
+            }
+
+        });
+
+
+
+
+        //set up question-answering
+        final Spinner answerSpinner = findViewById(R.id.answerSpinner);
+        final Button editAnswer = findViewById(R.id.EditAnswer);
+
+        editAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent a = new Intent(MainActivity.this, com.example.finalproject.editAnswer.class);
+                startActivity(a);
             }
         });
 
+        Button submitAnwer = findViewById(R.id.submit);
+
+        count0 = prefs.getInt("answer0", 0);
+        count1 = prefs.getInt("answer1", 0);
+        count2 = prefs.getInt("answer2", 0);
+        count3 = prefs.getInt("answer3", 0);
+        count4 = prefs.getInt("answer4", 0);
 
         //get display up-to-date
         updateDisplay();
 
-        //set up question-answering
-        final Spinner answerSpinner = findViewById(R.id.answerSpinner);
-        final Button submitAnswer = findViewById(R.id.submitAnswer);
-        submitAnswer.setOnClickListener(v -> {
-            Object selection = answerSpinner.getSelectedItem();
-            if (selection != null) {
-                questionData.addAnswer(selection.toString());
+        submitAnwer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String selection = answerSpinner.getSelectedItem().toString();
+                ArrayList<String> temp = questionData.getPossibleAnswers();
+
+
+                for (int i = 0; i < temp.size(); i++) {
+                    if (selection.equals(temp.get(i))) {
+                        if (i == 0) {
+                            count0++;
+                            editor.putInt("answer" + i, count0);
+                            editor.apply();
+                        }
+                        if (i == 1) {
+                            count1++;
+                            editor.putInt("answer" + i, count1);
+                            editor.apply();
+                        }
+                        if (i == 2) {
+                            count2++;
+                            editor.putInt("answer" + i, count2);
+                            editor.apply();
+                        }
+                        if (i == 3) {
+                            count3++;
+                            editor.putInt("answer" + i, count3);
+                            editor.apply();
+                        }
+                        if (i == 4) {
+                            count4++;
+                            editor.putInt("answer" + i, count4);
+                            editor.apply();
+                        }
+
+
+                    }
+
+                }
+
+
             }
+
         });
+
+
+
+
+
 
         //set up question-changing button
         final Button changeQuestion = findViewById(R.id.changeQuestion);
-        changeQuestion.setOnClickListener(v -> {
-            setContentView(R.layout.layout_set_question);
-            //set up question-entry
-            TextInputLayout questionEntry = findViewById(R.id.set_answer_entry);
-            Button setQuestion = findViewById(R.id.set_question_button);
-            setQuestion.setOnClickListener(w -> {
-                EditText question = questionEntry.getEditText();
-                if (question != null) {
-                    questionData = new QuestionData(question.toString());
-                    setContentView(R.layout.layout_set_answers);
-                }
-            });
-            //set up answer entry
-            List<String> answers = new ArrayList<>();
-            TextInputLayout answerEntry = findViewById(R.id.add_answer_entry);
-            Button addAnswer = findViewById(R.id.add_answer_button);
-            addAnswer.setOnClickListener(w -> {
-                EditText answer = answerEntry.getEditText();
-                if (answer != null) {
-                    answers.add(answer.toString());
-                }
-                if (answers.size() >= QuestionData.MAX_ANSWERS) {
-                    addAnswer.setVisibility(View.INVISIBLE);
-                }
-            });
-            //set up answer removal
-            Button removeAnswers = findViewById(R.id.remove_answers);
-            removeAnswers.setOnClickListener(w -> {
-                answers.retainAll(new ArrayList<String>());
-                addAnswer.setVisibility(View.VISIBLE);
-            });
-            //go back to answering questions
-            Button setAnswers = findViewById(R.id.set_answers_button);
-            setAnswers.setOnClickListener(w -> {
-                questionData.setAnswers(answers);
-                setContentView(R.layout.activity_main);
-            });
-            updateDisplay();
+
+        changeQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent b = new Intent(MainActivity.this, setQuestion.class);
+                startActivity(b);
+            }
         });
+
+
+
     }
 
     /** Update the question and answers in the display. */
@@ -110,40 +202,26 @@ public class MainActivity extends AppCompatActivity {
         TextView questionDisplay = findViewById(R.id.questionDisplay);
         questionDisplay.setText(questionData.getQuestion());
 
+
         //answer spinner
         Spinner answerSpinner = findViewById(R.id.answerSpinner);
         ArrayAdapter<String> answerAdapter = new ArrayAdapter<>(this,
                 R.layout.support_simple_spinner_dropdown_item, questionData.getPossibleAnswers());
         answerSpinner.setAdapter(answerAdapter);
 
-        //answer table
-        TableRow[] frequencyRows = {
-                findViewById(R.id.row0), findViewById(R.id.row1), findViewById(R.id.row2),
-                findViewById(R.id.row3), findViewById(R.id.row4)
-        };
-        List<QuestionData.Frequency> frequencies = questionData.getFrequencies();
 
-        for (int i = 0; i < frequencies.size() && i < frequencyRows.length; i++) {
-            frequencyRows[i].setVisibility(View.VISIBLE);
-            TextView question = (TextView) frequencyRows[i].getChildAt(0);
-            question.setText(frequencies.get(i).getAnswer());
-            TextView frequency = (TextView) frequencyRows[i].getChildAt(1);
-            frequency.setText(frequencies.get(i).getFrequency());
-        }
-        for (int i = frequencies.size(); i < frequencyRows.length; i++) {
-            if (frequencyRows[i] == null) {
-                break;
-            }
-            frequencyRows[i].setVisibility(View.GONE);
-        }
 
-        //Chi-squared test
-        TextView pValue = findViewById(R.id.p_value);
-        pValue.setText(questionData.chiSquaredTest());
+
+
+
     }
+
+
+
 
     /** Getter for questionData. */
     QuestionData getQuestionData() {
         return questionData;
     }
+
 }

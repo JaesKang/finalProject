@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.ArrayList;
 import org.apache.commons.math3.distribution.ChiSquaredDistribution;
@@ -7,19 +8,20 @@ import org.apache.commons.math3.distribution.ChiSquaredDistribution;
 /** A class for storing data related to one particular question. */
 public class QuestionData {
 
+
     final static int MAX_ANSWERS = 5;
 
     /** The question being asked. */
     private String question;
 
     /** The available answers to the question. */
-    private List<String> possibleAnswers = new ArrayList<>();
+    private ArrayList<String> possibleAnswers = new ArrayList<>();
 
     /** The user's choices of answers to the question. */
-    private List<String> chosenAnswers = new ArrayList<>();
+    private ArrayList<String> chosenAnswers = new ArrayList<>();
 
     /** The frequencies of each answer. */
-    private List<Frequency> frequencies = new ArrayList<>();
+    private ArrayList<Frequency> frequencies = new ArrayList<>();
 
     /** Empty constructor. */
     public QuestionData() {
@@ -31,7 +33,7 @@ public class QuestionData {
      * @param setQuestion what the question should be
      * @param setAnswers what the answers should be
      */
-    QuestionData(final String setQuestion, final List<String> setAnswers) {
+    QuestionData(final String setQuestion, final ArrayList<String> setAnswers) {
         if (setQuestion == null || setAnswers == null || setAnswers.contains(null)) {
             throw new IllegalArgumentException("inputs should not be null");
         }
@@ -52,11 +54,19 @@ public class QuestionData {
         setFrequencies();
     }
 
+    void setQuestion(final String setQuestion) {
+        if (setQuestion == null) {
+            return;
+        }
+        question = setQuestion;
+        setFrequencies();
+    }
+
     /** Set the answers to the question.
      *
      * @param setAnswers the answers
      */
-    void setAnswers(final List<String> setAnswers) {
+    void setAnswers(final ArrayList<String> setAnswers) {
         if (setAnswers == null || setAnswers.contains(null)) {
             throw new IllegalArgumentException("inputs should not be null");
         }
@@ -93,7 +103,7 @@ public class QuestionData {
      *
      * @return answers
      */
-    List<String> getPossibleAnswers() {
+    ArrayList<String> getPossibleAnswers() {
         return possibleAnswers;
     }
 
@@ -102,10 +112,10 @@ public class QuestionData {
      * @return the p-value
      */
     String chiSquaredTest() {
-        if (chosenAnswers.size() < 2) {
-            return Double.toString(0);
+        double expectedFrequency = 0;
+        if (possibleAnswers.size() > 0) {
+            expectedFrequency = (double) chosenAnswers.size() / (double) possibleAnswers.size();
         }
-        double expectedFrequency = (double) chosenAnswers.size() / (double) possibleAnswers.size();
         double chiSquaredStat = 0;
         for (Frequency frequency : frequencies) {
             chiSquaredStat += Math.pow((double) frequency.getFrequency() - expectedFrequency, 2);
@@ -129,7 +139,7 @@ public class QuestionData {
      *
      * @return frequencies
      */
-    List<Frequency> getFrequencies() {
+    ArrayList<Frequency> getFrequencies() {
         return frequencies;
     }
 
